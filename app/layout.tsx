@@ -4,7 +4,7 @@ import { raleway } from "@/app/ui/fonts";
 import "@/app/ui/globals.css";
 
 export const metadata: Metadata = {
-   title: "Our Movie Lists",
+   title: "Ridho Movie Lists",
    description: "The next movie lists",
 };
 
