@@ -1,27 +1,31 @@
+"use client";
+
 import clsx from "clsx";
 import Link from "next/link";
-import React from "react";
-import { Bars3Icon } from "@heroicons/react/24/outline";
+import React, { useState } from "react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import { righteous } from "@/app/ui/fonts";
 import ToggleDark from "@/app/ui/toggle";
 
 const Navbar = () => {
+   const [collapse, setCollapse] = useState<any>(false);
+
    return (
       <nav className="bg-neutral-100 w-full h-20 flex justify-between items-center px-3 md:px-4 dark:text-white dark:bg-neutral-800">
          {/* Hamburger Icon */}
-         <Bars3Icon className="h-7 flex md:hidden" />
+         <Bars3Icon className="h-7 flex cursor-pointer md:hidden" onClick={() => setCollapse(!collapse)} />
 
          {/* Logo */}
-         <div className={clsx("logo", righteous.className)}>
+         <Link href="/" className={clsx("logo ", righteous.className)}>
             <p className="text-2xl md:text-3xl">
-               <span className="text-red-500">Our</span>
+               <span className="text-red-500">Ridho</span>
                <span>Movies</span>
             </p>
-         </div>
+         </Link>
 
          {/* Navigation Link */}
-         <NavLink />
+         <NavLink collapse={collapse} setCollapse={setCollapse} />
 
          {/* Toggle Switch Mode */}
          <ToggleDark />
@@ -29,36 +33,31 @@ const Navbar = () => {
    );
 };
 
-const NavLink = () => {
-   const links = [
-      {
-         nav: "Home",
-         href: "/",
-      },
-      {
-         nav: "Popular",
-         href: "/popular",
-      },
-      {
-         nav: "Anime",
-         href: "/anime",
-      },
-      {
-         nav: "Western",
-         href: "/western",
-      },
-   ];
+const NavLink = ({ collapse, setCollapse }: any) => {
+   const [active, setActive] = useState("");
+
+   const links = ["Home", "Popular", "Anime", "Western"];
    return (
-      <div className="nav-link hidden md:flex">
-         {links.map((nav) => (
-            <Link
-               className="flex mx-4 p-2 transition duration-0 hover:duration-200 hover:font-semibold"
-               href={nav.href}
-               key={nav.nav}
-            >
-               {nav.nav}
-            </Link>
-         ))}
+      <div
+         className={clsx("nav-link md:flex md:static md:shadow-none md:w-fit", {
+            "absolute left-0 top-0 bottom-0 w-1/2 bg-neutral-100 shadow shadow-lg dark:bg-neutral-800": collapse === true,
+            "hidden w-0": collapse === false,
+         })}
+      >
+         <div className="px-5 py-6 flex justify-between md:hidden">
+            <p className="text-2xl font-semibold">Menu</p>
+            <XMarkIcon className="h-6 mt-1 cursor-pointer" onClick={() => setCollapse(!collapse)} />
+         </div>
+         
+         {links.map((nav) => {
+            !active && setActive("home");
+
+            return (
+               <Link className={clsx("flex mx-4 p-2 hover:font-semibold duration-200", { "font-semibold": active === nav.toLowerCase() })} href="#" key={nav} onClick={() => setActive(nav.toLowerCase())}>
+                  {nav}
+               </Link>
+            );
+         })}
       </div>
    );
 };
