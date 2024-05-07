@@ -12,7 +12,7 @@ const Navbar = () => {
    const [collapse, setCollapse] = useState<any>(false);
 
    return (
-      <nav className="bg-neutral-100 w-full h-20 flex justify-between items-center px-3 md:px-4 dark:text-white dark:bg-neutral-900">
+      <nav className="bg-neutral-100 w-full h-20 flex justify-between items-center px-3 sticky top-0 left-0 right-0 z-10 md:px-8 dark:text-white dark:bg-neutral-900">
          {/* Hamburger Icon */}
          <Bars3Icon className="h-7 flex cursor-pointer md:hidden" onClick={() => setCollapse(!collapse)} />
 
@@ -34,11 +34,20 @@ const Navbar = () => {
 const NavLink = ({ collapse, setCollapse }: any) => {
    const [active, setActive] = useState("");
 
-   const links = ["Home", "Popular", "Anime", "Western"];
+   const links = [
+      {
+         nav: "Home",
+         target: "/",
+      },
+      {
+         nav: "Genre",
+         target: "/genre",
+      }
+   ];
    return (
       <div
          className={clsx("nav-link md:flex md:static md:shadow-none md:w-fit", {
-            "absolute left-0 top-0 bottom-0 w-1/2 bg-neutral-100 shadow shadow-lg dark:bg-neutral-900": collapse === true,
+            "fixed left-0 top-0 bottom-0 w-1/2 bg-neutral-100 shadow shadow-lg z-20 dark:bg-neutral-900": collapse === true,
             "hidden w-0": collapse === false,
          })}
       >
@@ -51,8 +60,8 @@ const NavLink = ({ collapse, setCollapse }: any) => {
             !active && setActive("home");
 
             return (
-               <Link className={clsx("flex mx-4 p-2 hover:font-semibold duration-200", { "font-semibold": active === nav.toLowerCase() })} href={`#${nav.toLowerCase()}`} key={nav} onClick={() => setActive(nav.toLowerCase())}>
-                  {nav}
+               <Link className={clsx("flex mx-4 p-2 hover:font-semibold duration-200", { "font-semibold": active === nav.nav.toLowerCase() })} href={`${nav.target}`} key={nav.nav} onClick={() => setActive(nav.nav.toLowerCase())}>
+                  {nav.nav}
                </Link>
             );
          })}
