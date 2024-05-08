@@ -22,7 +22,7 @@ export const fetchNowPlaying = async () => {
       return response.data?.results;
    } catch (err) {
       console.log(err);
-      throw new Error("Failed to get popular data");
+      throw new Error("Failed to get now playing data");
    }
 };
 
@@ -32,6 +32,19 @@ export const fetchUpcoming = async () => {
    try {
       const response = await axios.get("https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1", getOption);
       return response.data?.results;
+   } catch (err) {
+      console.log(err);
+      throw new Error("Failed to get upcoming data");
+   }
+};
+
+
+export const fetchDetailMovie = async () => {
+   unstable_noStore();
+
+   try {
+      const response = await axios.get("https://api.themoviedb.org/3/movie/653346?language=en-US&page=1", getOption);
+      return response.data
    } catch (err) {
       console.log(err);
       throw new Error("Failed to get popular data");
