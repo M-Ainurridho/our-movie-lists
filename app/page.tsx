@@ -7,10 +7,13 @@ import NowPlaying from "./ui/home/now-playing";
 import { ScrollToTop } from "./ui/buttons";
 import Upcoming from "./ui/home/upcoming";
 import Carousel from "./ui/home/carousel";
+import { fetchMovieGenres } from "./lib/api";
 
 // import "./home.module.css"
 
-export default function Page() {
+export default async function Page() {
+   // const genres = await fetchMovieGenres();
+
    return (
       <DarkTheme>
          <Navbar />
