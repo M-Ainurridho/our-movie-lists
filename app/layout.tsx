@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { raleway } from "@/app/ui/fonts";
 
 import "@/app/ui/globals.css";
+import DarkTheme from "./ui/theme";
+import Navbar from "./ui/navbar";
 
 export const metadata: Metadata = {
    title: "Ridho Movie Lists",
@@ -15,9 +17,12 @@ export default function RootLayout({
 }>) {
    return (
       <html lang="en">
-         <body className={raleway.className} suppressHydrationWarning={true}>
-            {children}
-         </body>
+         <DarkTheme>
+            <body className={raleway.className} suppressHydrationWarning={true}>
+               <Navbar />
+               {children}
+            </body>
+         </DarkTheme>
       </html>
    );
 }

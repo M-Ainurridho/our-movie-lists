@@ -11,6 +11,6 @@ export const righteous = Righteous({
 });
 
 export const merienda = Merienda({
-   weight: ["700", "800"],
+   weight: ["300"],
    subsets: ["latin"],
 });

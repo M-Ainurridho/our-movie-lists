@@ -29,14 +29,14 @@ const DetailMovie = ({ movies }: any) => {
    };
 
    return (
-      <div id="hero" className={`${style.heroPattern} h-[480px] w-full relative flex justify-center items-center`} style={{ backgroundImage: `url('http://image.tmdb.org/t/p/w500${movie.backdrop_path}')` }}>
+      <div id="hero" className={`${style.heroPattern} h-[480px] w-full relative`} style={{ backgroundImage: `url('http://image.tmdb.org/t/p/w500${movie.backdrop_path}')` }}>
 
          {/* Prev Slide */}
          {count > 0 && <ArrowLeftCircleIcon className="h-10 md:h-12 absolute text-white top-1/2 bottom-1/2 left-3 md:left-5 cursor-pointer z-10" onClick={handlePrevSlide} />}
 
          {/* Detail */}
          <div className="h-full w-full flex items-center justify-center backdrop-blur ">
-            <div className="carousel-detail flex flex-col items-center gap-2 z-0">
+            <div className=" flex flex-col items-center gap-2 z-0">
                <Image width={150} height={250} src={`http://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="aspect-[4/5] object-cover rounded" />
                <div className="text-white mx-4 text-center">
                   <Link href={`/genre/popular/${movie.id}`} className="text-xl md:text-2xl mb-0.5">

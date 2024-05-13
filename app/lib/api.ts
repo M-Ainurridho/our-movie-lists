@@ -6,8 +6,12 @@ export const fetchPopularMovies = async () => {
    unstable_noStore();
 
    try {
-      const response = await axios.get("https://api.themoviedb.org/3/movie/popular?language=en-US&page=1", getOption);
-      return response.data?.results;
+      const response = await axios.get("https://api.themoviedb.org/3/movie/popular?language=en-US&page=5", getOption);
+      return {
+         data: response?.data.results,
+         page: response?.data.page,
+         total_pages: response?.data.total_pages,
+      };
    } catch (err) {
       console.log(err);
       throw new Error("Failed to get popular data");
