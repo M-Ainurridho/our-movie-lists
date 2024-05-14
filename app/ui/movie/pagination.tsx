@@ -2,51 +2,48 @@
 
 import clsx from "clsx";
 import { merienda } from "@/app/ui/fonts";
-import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
+import { generatePages } from "@/app/lib/utils";
 
-const Pagination = ({ pages }: { pages: number }) => {
-   let [count, setCount] = useState(1);
+const Pagination = ({ totalPages }: { totalPages: number }) => {
+   const pathname = usePathname();
+   const searchParams = useSearchParams();
+   const currentPage = Number(searchParams.get("page")) || 1;
 
-   const loopNumber = (values: number) => {
-      let numbers: any[] = [];
+   const allPages = generatePages(currentPage, totalPages);
 
-      for (let i = 1; i <= values; i++) {
-         if (i === 10) {
-            numbers = [...numbers, i];
-            break;
-         }
-
-         if (i > 5) {
-            if (numbers.includes("...")) continue;
-            numbers = [...numbers, "..."];
-         } else {
-            numbers = [...numbers, i];
-         }
-      }
-
-      return numbers;
+   const createPageURL = (pageNumber: number | string) => {
+      const params = new URLSearchParams(searchParams);
+      params.set("page", pageNumber.toString());
+      return `${pathname}?${params.toString()}`;
    };
+
    return (
       <div className="pagination flex justify-center items-center gap-x-2 mt-8">
-         {count > 1 && <ChevronLeftIcon className="h-8 mx-1 p-2 rounded-full cursor-pointer hover:bg-black hover:text-white duration-200" onClick={() => setCount(--count)} />}
+         <Link href={createPageURL(currentPage - 1)}>
+            <ChevronLeftIcon className={clsx({ "h-8 mx-1 p-2 rounded-full cursor-pointer hover:bg-black hover:text-white duration-200": currentPage > 1 })} />
+         </Link>
 
-         {loopNumber(pages).map((val) => (
-            <button
-               key={val}
+         {allPages.map((val: any, idx: number) => (
+            <Link
+               href={createPageURL(val)}
+               key={idx}
                className={clsx(
-                  { "text-sm font-bold w-7 h-7 rounded-full text-white bg-neutral-900 flex items-center justify-center md:text-base md:w-8 md:h-8": typeof val !== "string" },
-                  { "bg-blue-500 ": count === val, "hover:bg-blue-500 duration-100": count !== val },
+                  { "px-1 font-bold flex items-center justify-center text-base hover:text-blue-700 duration-100": typeof val !== "string" },
+                  { "text-blue-700": currentPage === val },
+                  { "cursor-default": typeof val === "string" },
                   merienda.className
                )}
-               disabled={typeof val === "string" && true}
-               onClick={() => setCount(val)}
             >
                {val}
-            </button>
+            </Link>
          ))}
 
-         {count < 10 && <ChevronRightIcon className="h-8 mx-1 p-2 rounded-full cursor-pointer hover:bg-black hover:text-white duration-200" onClick={() => setCount(++count)} />}
+         <Link href={createPageURL(currentPage + 1)}>
+            <ChevronRightIcon className="h-8 mx-1 p-2 rounded-full cursor-pointer hover:bg-black hover:text-white duration-200" />
+         </Link>
       </div>
    );
 };

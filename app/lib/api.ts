@@ -2,15 +2,14 @@ import axios from "axios";
 import { getOption } from "./options";
 import { unstable_noStore } from "next/cache";
 
-export const fetchPopularMovies = async () => {
+export const fetchPopularMovies = async (page: number = 1) => {
    unstable_noStore();
 
    try {
-      const response = await axios.get("https://api.themoviedb.org/3/movie/popular?language=en-US&page=5", getOption);
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`, getOption);
       return {
          data: response?.data.results,
-         page: response?.data.page,
-         total_pages: response?.data.total_pages,
+         totalPages: response?.data.total_pages,
       };
    } catch (err) {
       console.log(err);
@@ -18,24 +17,30 @@ export const fetchPopularMovies = async () => {
    }
 };
 
-export const fetchNowPlaying = async () => {
+export const fetchNowPlaying = async (page: number = 1) => {
    unstable_noStore();
 
    try {
-      const response = await axios.get("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", getOption);
-      return response.data?.results;
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${page}`, getOption);
+      return {
+         data: response?.data.results,
+         totalPages: response?.data.total_pages,
+      };
    } catch (err) {
       console.log(err);
       throw new Error("Failed to get now playing data");
    }
 };
 
-export const fetchUpcoming = async () => {
+export const fetchUpcoming = async (page: number = 1) => {
    unstable_noStore();
 
    try {
-      const response = await axios.get("https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1", getOption);
-      return response.data?.results;
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${page}`, getOption);
+      return {
+         data: response?.data.results,
+         totalPages: response?.data.total_pages,
+      };
    } catch (err) {
       console.log(err);
       throw new Error("Failed to get upcoming data");

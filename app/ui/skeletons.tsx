@@ -19,13 +19,22 @@ export const RecommendedSkeleton = () => {
       <div className="p-4 bg-neutral-100 dark:text-white dark:bg-neutral-900 md:rounded-md shadow">
          <div className="flex items-center justify-between">
             <h2 className="h-5 w-44 bg-neutral-200 rounded-sm dark:bg-neutral-800"></h2>
-            <button className="h-7 w-16 rounded-full bg-neutral-200 dark:bg-neutral-800 dark:bg-neutral-800"></button>
+            <p className="h-7 w-16 rounded-full bg-neutral-200 dark:bg-neutral-800 dark:bg-neutral-800"></p>
          </div>
 
          <div className="w-full h-[1px] bg-neutral-300 dark:bg-neutral-800 mt-2 mb-2.5" />
 
          <CardsSkeleton />
       </div>
+   );
+};
+
+export const MovieRecommendedSkeleton = () => {
+   return (
+      <section id="section-page" className="px-4 py-8 md:p-8 dark:bg-neutral-900 dark:text-white">
+         <h1 className="h-6 w-60 bg-neutral-200 dark:bg-neutral-800 rounded-sm mb-4"></h1>
+         <CardsSkeleton />
+      </section>
    );
 };
 

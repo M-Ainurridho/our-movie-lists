@@ -7,6 +7,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import { righteous } from "@/app/ui/fonts";
 import { ToggleDark } from "@/app/ui/theme";
+import { usePathname } from "next/navigation";
 const Navbar = () => {
    const [collapse, setCollapse] = useState<any>(false);
 
@@ -32,6 +33,7 @@ const Navbar = () => {
 
 const NavLink = ({ collapse, setCollapse }: any) => {
    const [active, setActive] = useState("");
+   const pathname = usePathname()
 
    const links = [
       {
