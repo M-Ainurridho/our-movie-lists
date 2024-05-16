@@ -32,8 +32,7 @@ const Navbar = () => {
 };
 
 const NavLink = ({ collapse, setCollapse }: any) => {
-   const [active, setActive] = useState("");
-   const pathname = usePathname()
+   const pathname = usePathname();
 
    const links = [
       {
@@ -41,8 +40,8 @@ const NavLink = ({ collapse, setCollapse }: any) => {
          target: "/",
       },
       {
-         nav: "Genre",
-         target: "/genre",
+         nav: "Genres",
+         target: "/movie/genre",
       },
    ];
    return (
@@ -58,10 +57,8 @@ const NavLink = ({ collapse, setCollapse }: any) => {
          </div>
 
          {links.map((nav) => {
-            !active && setActive("home");
-
             return (
-               <Link className={clsx("flex items-center mx-4 p-2   relative", { "font-semibold": active === nav.nav.toLowerCase() })} href={`${nav.target}`} key={nav.nav} onClick={() => setActive(nav.nav.toLowerCase())}>
+               <Link className={clsx("flex items-center mx-4 p-2 relative", { "font-semibold": pathname === nav.target })} href={`${nav.target}`} key={nav.nav}>
                   <span className="hover:font-semibold duration-200">{nav.nav}</span>
                </Link>
             );

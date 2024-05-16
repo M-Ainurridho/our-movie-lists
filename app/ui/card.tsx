@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Movie } from "../lib/definitions";
+import { toSnakeCase } from "../lib/utils";
 
 const Card = ({ id, title, poster_path, release_date }: Movie) => {
    const date = new Date(release_date).getFullYear();
 
    return (
-      <Link href={`/movie/${id}`} className="card">
+      <Link href={`/movie/${toSnakeCase(title)}_${id}`} className="card">
          <div className="card-header">
             <Image width={1000} height={760} src={`http://image.tmdb.org/t/p/w500${poster_path}`} alt={title} className="aspect-[4/5] rounded hidden md:flex" />
 

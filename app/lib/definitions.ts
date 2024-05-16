@@ -1,9 +1,7 @@
 export type Genre = {
-   id: number | string;
+   id: number;
    name: string;
 };
-
-export type Genres = Genre[];
 
 export type Movie = {
    id: number | string;

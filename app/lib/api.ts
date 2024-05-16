@@ -23,7 +23,7 @@ export const fetchNowPlaying = async (page: number = 1) => {
    try {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${page}`, getOption);
       return {
-         data: response?.data.results,
+         data: response.data?.results,
          totalPages: response?.data.total_pages,
       };
    } catch (err) {
@@ -31,6 +31,7 @@ export const fetchNowPlaying = async (page: number = 1) => {
       throw new Error("Failed to get now playing data");
    }
 };
+
 
 export const fetchUpcoming = async (page: number = 1) => {
    unstable_noStore();
@@ -59,7 +60,7 @@ export const fetchTopRated = async () => {
    }
 };
 
-export const fetchDetailMovie = async (id: number) => {
+export const fetchDetailMovie = async (id: string | number) => {
    unstable_noStore();
 
    try {
@@ -82,3 +83,22 @@ export const fetchMovieGenres = async () => {
       throw new Error("Failed to get popular data");
    }
 };
+
+export const fetchMoviesByGenre = async (params: string | number, page: number) => {
+   unstable_noStore();
+
+   try {
+      const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${params}&language=en-US&page=${page}`, getOption);
+
+      console.log(response.data)
+      return {
+         data: response.data?.results,
+         totalPages: response.data?.total_pages,
+      };
+   } catch (err) {
+      console.log(err);
+      throw new Error("Failed to get popular data");
+   }
+};
+
+// export const fetchFilteredMoviesbyGenre = (params: string) {}

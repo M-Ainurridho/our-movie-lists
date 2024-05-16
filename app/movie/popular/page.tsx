@@ -3,6 +3,8 @@ import Card from "@/app/ui/card";
 
 import { Movie } from "@/app/lib/definitions";
 import Pagination from "@/app/ui/movie/pagination";
+import { Suspense } from "react";
+import { MovieRecommendedSkeleton } from "@/app/ui/skeletons";
 
 const Page = async ({ searchParams }: { searchParams?: { page?: number } }) => {
    const currentPage = Number(searchParams?.page) || 1;
@@ -16,9 +18,11 @@ const Page = async ({ searchParams }: { searchParams?: { page?: number } }) => {
             </h1>
 
             <div className="cards grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-x-4 gap-y-5 justify-between mt-4">
-               {data.map((p: Movie) => (
-                  <Card key={p.id} id={p.id} title={p.title} poster_path={p.poster_path} release_date={p.release_date} />
-               ))}
+               <Suspense key={currentPage} fallback={<MovieRecommendedSkeleton />}>
+                  {data.map((p: Movie) => (
+                     <Card key={p.id} id={p.id} title={p.title} poster_path={p.poster_path} release_date={p.release_date} />
+                  ))}
+               </Suspense>
             </div>
 
             <Pagination totalPages={totalPages} />
