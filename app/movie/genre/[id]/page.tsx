@@ -1,6 +1,9 @@
 import { fetchMoviesByGenre } from "@/app/lib/api";
 import { generateGenre, toSnakeCase } from "@/app/lib/utils";
-import CardWrapper from "@/app/ui/cards";
+
+import { Suspense } from "react";
+import { CardsSkeleton } from "@/app/ui/skeletons";
+import Genres from "@/app/ui/movie/genres";
 import Pagination from "@/app/ui/movie/pagination";
 
 const Page = async ({
@@ -15,15 +18,17 @@ const Page = async ({
    const id = toSnakeCase(params?.id, false);
    const currentPage = Number(searchParams?.page) || 1;
 
-   const { data, totalPages } = await fetchMoviesByGenre(id, currentPage);
+   const { totalPages } = await fetchMoviesByGenre(id, currentPage);
 
    return (
       <div id="section-page" className="px-4 py-8 md:p-8 dark:bg-neutral-900 dark:text-white">
-         <h1 className="text-xl md:text-2xl">
+         <h1 className="text-xl md:text-2xl mb-4">
             Show All <strong>{generateGenre(params?.id)} Genre</strong>
          </h1>
 
-         <CardWrapper data={data} />
+         <Suspense key={Number(id) + currentPage} fallback={<CardsSkeleton />}>
+            <Genres id={id} currentPage={currentPage} />
+         </Suspense>
 
          <Pagination totalPages={totalPages} />
       </div>

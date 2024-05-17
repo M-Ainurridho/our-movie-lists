@@ -1,3 +1,6 @@
+import { HashtagIcon } from "@heroicons/react/24/outline";
+import { ReactNode } from "react";
+
 export const CarouselSkeleton = () => {
    return (
       <div className="h-[480px] w-full bg-neutral-100 dark:bg-neutral-900">
@@ -29,12 +32,31 @@ export const RecommendedSkeleton = () => {
    );
 };
 
+const ContainerSkeleton = ({ children }: { children: ReactNode }) => {
+   return <div className="px-4 py-8 md:p-8 dark:bg-neutral-800 dark:text-white md:min-h-[88vh]">{children}</div>;
+};
+
 export const MovieRecommendedSkeleton = () => {
    return (
-      <section id="section-page" className="px-4 py-8 md:p-8 dark:bg-neutral-800 dark:text-white md:min-h-[88vh]">
+      <ContainerSkeleton>
          <h1 className="h-6 w-60 bg-neutral-200 dark:bg-black/25 rounded-sm mb-4"></h1>
          <CardsSkeleton />
-      </section>
+      </ContainerSkeleton>
+   );
+};
+
+export const GenreListSkeleton = () => {
+   return (
+      <ContainerSkeleton>
+         <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-6 p-2 lg:mx-32 md:mt-10">
+            {[...Array(20)].map((_: any, index: number) => (
+               <p key={index} className="flex items-center">
+                  <HashtagIcon className="w-4 mr-1" />
+                  <span className="h-6 w-full bg-neutral-200 rounded-sm dark:bg-black/25"></span>
+               </p>
+            ))}
+         </div>
+      </ContainerSkeleton>
    );
 };
 

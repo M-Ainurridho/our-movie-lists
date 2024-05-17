@@ -14,7 +14,7 @@ export const generatePages = (currentPage: number, totalPages: number) => {
    return [1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages];
 };
 
-export const toSnakeCase = (text: string | undefined, isConvert: boolean = true) => {
+export const toSnakeCase = (text: string, isConvert: boolean = true) => {
    if (isConvert) {
       const newText = text!.toLowerCase().split(" ");
       return newText.join("_");

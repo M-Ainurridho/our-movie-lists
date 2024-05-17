@@ -1,9 +1,7 @@
 import { Genre } from "@/app/lib/definitions";
 import { toSnakeCase } from "@/app/lib/utils";
 import clsx from "clsx";
-import { DraftModeProvider } from "next/dist/server/async-storage/draft-mode-provider";
 import Link from "next/link";
-import { Fragment } from "react";
 
 const Table = ({
    movie,
@@ -21,13 +19,15 @@ const Table = ({
 }) => {
    return (
       <table className="border">
-         <TableRow title="Title" content={movie.title} />
-         <TableRow title="Tagline" content={movie.tagline} />
-         <TableRow title="Genres" content={movie.genres} />
-         <TableRow title="Production Countries" content={movie.production_countries} />
-         <TableRow title="Homepage" content={movie.homepage} isLink={true} />
-         <TableRow title="Status" content={movie.status} />
-         <TableRow title="Overview" content={movie.overview} />
+         <tbody>
+            <TableRow title="Title" content={movie.title} />
+            <TableRow title="Tagline" content={movie.tagline} />
+            <TableRow title="Genres" content={movie.genres} />
+            <TableRow title="Production Countries" content={movie.production_countries} />
+            <TableRow title="Homepage" content={movie.homepage} isLink={true} />
+            <TableRow title="Status" content={movie.status} />
+            <TableRow title="Overview" content={movie.overview} />
+         </tbody>
       </table>
    );
 };
@@ -66,11 +66,11 @@ export const TableContentObject = ({ arr }: Genre[] | any) => {
             const NAME = index !== arr.length - 1 ? `${el.name}, ` : el.name;
 
             return el?.id ? (
-               <Link href={`/movie/genre/${toSnakeCase(el.name)}_${el.id}`} className="text-blue-700 hover:text-blue-500">
+               <Link key={index} href={`/movie/genre/${toSnakeCase(el.name)}_${el.id}`} className="text-blue-700 hover:text-blue-500">
                   {NAME}
                </Link>
             ) : (
-               <span>{NAME}</span>
+               <span key={index}>{NAME}</span>
             );
          })}
       </td>

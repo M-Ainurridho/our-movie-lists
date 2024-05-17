@@ -1,11 +1,7 @@
 import { MovieRecommendedSkeleton } from "@/app/ui/skeletons";
 
 const Loading = () => {
-   return (
-      <div>
-         <MovieRecommendedSkeleton />
-      </div>
-   );
+   return <MovieRecommendedSkeleton />;
 };
 
 export default Loading;

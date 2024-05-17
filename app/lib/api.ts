@@ -1,10 +1,10 @@
 import axios from "axios";
 import { getOption } from "./options";
-import { unstable_noStore } from "next/cache";
+import { unstable_noStore as noStore } from "next/cache";
 import { NumberOrUndefined } from "@/app/lib/definitions";
 
 export const fetchPopular = async (page: NumberOrUndefined = 1) => {
-   unstable_noStore();
+   noStore();
 
    try {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`, getOption);
@@ -19,7 +19,7 @@ export const fetchPopular = async (page: NumberOrUndefined = 1) => {
 };
 
 export const fetchNowPlaying = async (page: NumberOrUndefined = 1) => {
-   unstable_noStore();
+   noStore();
 
    try {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${page}`, getOption);
@@ -34,7 +34,7 @@ export const fetchNowPlaying = async (page: NumberOrUndefined = 1) => {
 };
 
 export const fetchUpcoming = async (page: NumberOrUndefined = 1) => {
-   unstable_noStore();
+   noStore();
 
    try {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${page}`, getOption);
@@ -49,7 +49,7 @@ export const fetchUpcoming = async (page: NumberOrUndefined = 1) => {
 };
 
 export const fetchTopRated = async () => {
-   unstable_noStore();
+   noStore();
    const page = new Date().getDate();
 
    try {
@@ -62,7 +62,7 @@ export const fetchTopRated = async () => {
 };
 
 export const fetchDetailMovie = async (id: string | number) => {
-   unstable_noStore();
+   noStore();
 
    try {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}?language=en-US&page=1`, getOption);
@@ -74,7 +74,7 @@ export const fetchDetailMovie = async (id: string | number) => {
 };
 
 export const fetchMovieGenres = async () => {
-   unstable_noStore();
+   noStore();
 
    try {
       const response = await axios.get("https://api.themoviedb.org/3/genre/movie/list?language=en", getOption);
@@ -86,12 +86,11 @@ export const fetchMovieGenres = async () => {
 };
 
 export const fetchMoviesByGenre = async (params: string | number, page: number) => {
-   unstable_noStore();
+   noStore();
 
    try {
       const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${params}&language=en-US&page=${page}`, getOption);
 
-      console.log(response.data);
       return {
          data: response.data?.results,
          totalPages: response.data?.total_pages,

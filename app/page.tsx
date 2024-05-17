@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { CardsSkeleton, CarouselSkeleton, RecommendedSkeleton } from "@/app/ui/skeletons";
+import { CarouselSkeleton, RecommendedSkeleton } from "@/app/ui/skeletons";
 import Carousel from "@/app/ui/home/carousel";
 import Main from "@/app/ui/main";
 
