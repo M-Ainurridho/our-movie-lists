@@ -1,7 +1,6 @@
 import { fetchMoviesByGenre } from "@/app/lib/api";
-import { Movie } from "@/app/lib/definitions";
 import { generateGenre, toSnakeCase } from "@/app/lib/utils";
-import Card from "@/app/ui/card";
+import CardWrapper from "@/app/ui/cards";
 import Pagination from "@/app/ui/movie/pagination";
 
 const Page = async ({
@@ -24,11 +23,7 @@ const Page = async ({
             Show All <strong>{generateGenre(params?.id)} Genre</strong>
          </h1>
 
-         <div className="cards grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-x-4 gap-y-5 justify-between mt-4">
-            {data.map((p: Movie) => (
-               <Card key={p.id} id={p.id} title={p.title} poster_path={p.poster_path} release_date={p.release_date} />
-            ))}
-         </div>
+         <CardWrapper data={data} />
 
          <Pagination totalPages={totalPages} />
       </div>

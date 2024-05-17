@@ -31,8 +31,8 @@ export const RecommendedSkeleton = () => {
 
 export const MovieRecommendedSkeleton = () => {
    return (
-      <section id="section-page" className="px-4 py-8 md:p-8 dark:bg-neutral-900 dark:text-white">
-         <h1 className="h-6 w-60 bg-neutral-200 dark:bg-neutral-800 rounded-sm mb-4"></h1>
+      <section id="section-page" className="px-4 py-8 md:p-8 dark:bg-neutral-800 dark:text-white md:min-h-[88vh]">
+         <h1 className="h-6 w-60 bg-neutral-200 dark:bg-black/25 rounded-sm mb-4"></h1>
          <CardsSkeleton />
       </section>
    );
@@ -55,12 +55,12 @@ export const CardsSkeleton = () => {
 export const CardSkeleton = () => {
    return (
       <div>
-         <div className="h-[210px] w-full bg-neutral-200 dark:bg-neutral-800 rounded-sm"></div>
+         <div className="h-[250px] md:h-[210px] w-full bg-neutral-200 dark:bg-black/25 rounded-sm"></div>
          <div className="mt-2">
-            <h5 className="h-3 w-full bg-neutral-200 rounded-sm dark:bg-neutral-800"></h5>
+            <h5 className="h-3 w-full bg-neutral-200 rounded-sm dark:bg-black/25"></h5>
             <p className="flex justify-between mt-2.5">
-               <span className="h-3 w-16 bg-neutral-200 rounded-sm dark:bg-neutral-800"></span>
-               <span className="h-3 w-8 bg-neutral-200 rounded-sm dark:bg-neutral-800"></span>
+               <span className="h-3 w-16 bg-neutral-200 rounded-sm dark:bg-black/25"></span>
+               <span className="h-3 w-8 bg-neutral-200 rounded-sm dark:bg-black/25"></span>
             </p>
          </div>
       </div>

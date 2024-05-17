@@ -1,18 +1,16 @@
-import Main from "@/app/ui/main";
-import PopularMovies from "@/app/ui/home/popular";
-import NowPlaying from "./ui/home/now-playing";
-// import { ScrollToTop } from "./ui/buttons";
-import Upcoming from "./ui/home/upcoming";
-import Carousel from "./ui/home/carousel";
-import { CarouselSkeleton, RecommendedSkeleton } from "./ui/skeletons";
 import { Suspense } from "react";
-// import { fetchMovieGenres } from "./lib/api";
+import { CardsSkeleton, CarouselSkeleton, RecommendedSkeleton } from "@/app/ui/skeletons";
+import Carousel from "@/app/ui/home/carousel";
+import Main from "@/app/ui/main";
 
-// import "./home.module.css"
+// import { ScrollToTop } from "./ui/buttons";
+
+import Recommended from "@/app/ui/home/recommended";
+import Popular from "@/app/ui/movie/recommended/popular";
+import NowPlaying from "@/app/ui/movie/recommended/now-playing";
+import Upcoming from "@/app/ui/movie/recommended/upcoming";
 
 export default async function Page() {
-   // const genres = await fetchMovieGenres();
-
    return (
       <>
          <Suspense fallback={<CarouselSkeleton />}>
@@ -21,15 +19,21 @@ export default async function Page() {
 
          <Main>
             <Suspense fallback={<RecommendedSkeleton />}>
-               <PopularMovies />
+               <Recommended title="Popular Movies" path="/popular">
+                  <Popular />
+               </Recommended>
             </Suspense>
 
             <Suspense fallback={<RecommendedSkeleton />}>
-               <NowPlaying />
+               <Recommended title="Now Playing" path="/now-playing">
+                  <NowPlaying />
+               </Recommended>
             </Suspense>
 
             <Suspense fallback={<RecommendedSkeleton />}>
-               <Upcoming />
+               <Recommended title="Upcoming" path="/upcoming">
+                  <Upcoming />
+               </Recommended>
             </Suspense>
          </Main>
 
