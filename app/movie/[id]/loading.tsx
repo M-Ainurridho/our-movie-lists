@@ -1,5 +1,7 @@
+import { LoadingCircle } from "@/app/ui/loadings";
+
 const Loading = () => {
-   return <p>Wait a Minute...</p>;
+   return <LoadingCircle />;
 };
 
 export default Loading;

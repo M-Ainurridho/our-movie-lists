@@ -52,7 +52,7 @@ export const GenreListSkeleton = () => {
             {[...Array(20)].map((_: any, index: number) => (
                <p key={index} className="flex items-center">
                   <HashtagIcon className="w-4 mr-1" />
-                  <span className="h-6 w-full bg-neutral-200 rounded-sm dark:bg-black/25"></span>
+                  <span className="h-4 md:h-6 w-full bg-neutral-200 rounded-sm dark:bg-black/25"></span>
                </p>
             ))}
          </div>

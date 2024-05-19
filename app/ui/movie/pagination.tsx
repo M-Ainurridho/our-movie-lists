@@ -6,13 +6,14 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { generatePages } from "@/app/lib/utils";
+import { PaginationSlide, StringOrNumber } from "@/app/lib/definitions";
 
 const Pagination = ({ totalPages }: { totalPages: number }) => {
    const pathname = usePathname();
    const searchParams = useSearchParams();
    const currentPage = Number(searchParams.get("page")) || 1;
 
-   const allPages = generatePages(currentPage, totalPages);
+   const allPages: PaginationSlide = generatePages(currentPage, totalPages);
 
    const createPageURL = (pageNumber: number | string) => {
       const params = new URLSearchParams(searchParams);
@@ -26,7 +27,7 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
             <ChevronLeftIcon className={clsx({ "h-8 mx-1 p-2 rounded-full cursor-pointer hover:bg-black hover:text-white duration-200": currentPage > 1 })} />
          </Link>
 
-         {allPages.map((val: any, idx: number) => (
+         {allPages.map((val: StringOrNumber, idx: number) => (
             <Link
                href={createPageURL(val)}
                key={idx}

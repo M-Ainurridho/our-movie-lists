@@ -18,7 +18,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
                <Table movie={movie} />
             </div>
          </div>
-         <ButtonBack className="mt-2" />
+         <ButtonBack className="mt-4" />
       </Container>
    );
 };

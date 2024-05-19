@@ -1,4 +1,6 @@
-export const generatePages = (currentPage: number, totalPages: number) => {
+import { PaginationSlide } from "./definitions";
+
+export const generatePages = (currentPage: number, totalPages: number): PaginationSlide => {
    if (totalPages <= 7) {
       return [1, 2, 3, 4, 5, 6, 7];
    }

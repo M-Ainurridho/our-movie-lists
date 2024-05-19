@@ -51,11 +51,11 @@ export const TableContentString = ({ text, isActive }: { text: string; isActive?
    return isActive ? (
       <td className={className}>
          <Link href={text} className="text-blue-700 hover:text-blue-500" target="_blank">
-            {text ? text : "-"}
+            {text || "-"}
          </Link>
       </td>
    ) : (
-      <td className={clsx(className, { "text-green-600": text.match(/released/i) })}>{text ? text : "-"}</td>
+      <td className={clsx(className, { "text-green-600": text.match(/released/i) })}>{text || "-"}</td>
    );
 };
 
