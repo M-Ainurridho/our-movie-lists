@@ -9,6 +9,7 @@ import Recommended from "@/app/ui/home/recommended";
 import Popular from "@/app/ui/movie/recommended/popular";
 import NowPlaying from "@/app/ui/movie/recommended/now-playing";
 import Upcoming from "@/app/ui/movie/recommended/upcoming";
+import "@/app/ui/home/home.css"
 
 export default async function Page() {
    return (

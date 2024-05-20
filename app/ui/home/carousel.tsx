@@ -1,10 +1,13 @@
-import {  fetchTopRated } from "@/app/lib/api";
+import { fetchTopRated } from "@/app/lib/api";
 import DetailMovie from "@/app/ui/home/detail";
+
+import "@/app/ui/home/home.css";
+import SwiperCarousel from "./swiper";
 
 const Carousel = async () => {
    const movies = await fetchTopRated();
 
-   return <DetailMovie movies={movies} />;
+   return <SwiperCarousel movies={movies} />;
 };
 
 export default Carousel;
