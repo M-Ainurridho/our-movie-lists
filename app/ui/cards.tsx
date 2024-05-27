@@ -10,7 +10,7 @@ const CardWrapper = ({ data }: any) => {
    const pathname = usePathname();
 
    return (
-      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-x-4 gap-y-5 justify-between">
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-x-5 gap-y-7 justify-between">
          {data.map((movie: Movie, index: number) => {
             return pathname !== "/" ? (
                <Card key={movie.id} id={movie.id} title={movie.title} poster_path={movie.poster_path} release_date={movie.release_date} />

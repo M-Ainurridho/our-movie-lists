@@ -8,6 +8,7 @@ export const fetchPopular = async (page: NumberOrUndefined = 1) => {
 
    try {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`, getOption);
+
       return {
          data: response?.data.results,
          totalPages: response?.data.total_pages,
@@ -90,6 +91,23 @@ export const fetchMoviesByGenre = async (params: string | number, page: number) 
 
    try {
       const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${params}&language=en-US&page=${page}`, getOption);
+
+      return {
+         data: response.data?.results,
+         totalPages: response.data?.total_pages,
+      };
+   } catch (err) {
+      console.log(err);
+      throw new Error("Failed to get popular data");
+   }
+};
+
+export const fetchSearchMovies = async (title: string, page: number) => {
+
+   noStore();
+
+   try {
+      const response = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${title}&language=en-US&page=${page}`, getOption);
 
       return {
          data: response.data?.results,

@@ -3,8 +3,8 @@ import { generateGenre, toSnakeCase } from "@/app/lib/utils";
 
 import { Suspense } from "react";
 import { CardsSkeleton } from "@/app/ui/skeletons";
-import Genres from "@/app/ui/movie/genres";
 import Pagination from "@/app/ui/movie/pagination";
+import SearchByGenre from "@/app/ui/movie/searchBy/genre";
 
 const Page = async ({
    params,
@@ -27,7 +27,7 @@ const Page = async ({
          </h1>
 
          <Suspense key={Number(id) + currentPage} fallback={<CardsSkeleton />}>
-            <Genres id={id} currentPage={currentPage} />
+            <SearchByGenre id={id} currentPage={currentPage} />
          </Suspense>
 
          <Pagination totalPages={totalPages} />

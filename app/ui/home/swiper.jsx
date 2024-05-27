@@ -7,6 +7,7 @@ const SwiperCarousel = ({ movies }) => {
       <swiper-container
          loop="true"
          speed="1000"
+         grab-cursor="true"
          pagination="true"
          pagination-clickable="true"
          autoplay>

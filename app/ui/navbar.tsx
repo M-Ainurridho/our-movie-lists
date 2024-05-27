@@ -8,16 +8,17 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { righteous } from "@/app/ui/fonts";
 import { ToggleDark } from "@/app/ui/theme";
 import { usePathname } from "next/navigation";
+import Search from "./home/search";
 const Navbar = () => {
    const [collapse, setCollapse] = useState<any>(false);
 
    return (
-      <nav className="bg-neutral-100 w-full h-16 flex justify-between items-center px-3 sticky top-0 left-0 right-0 z-40 md:px-8 dark:text-white dark:bg-neutral-900 shadow shadow-sm dark:shadow dark:shadow-neutral-800">
+      <nav className="bg-neutral-100 w-full h-16 flex md:justify-between items-center px-3 sticky top-0 left-0 right-0 z-40 md:px-8 dark:text-white dark:bg-neutral-900 shadow shadow-sm dark:shadow dark:shadow-neutral-800">
          {/* Hamburger Icon */}
          <Bars3Icon className="h-7 flex cursor-pointer md:hidden" onClick={() => setCollapse(!collapse)} />
 
          {/* Logo */}
-         <Link href="/" className={clsx("logo text-2xl md:text-3xl", righteous.className)}>
+         <Link href="/" className={clsx("logo hidden md:block md:text-3xl", righteous.className)}>
             <span className="text-red-500">Ridho</span>
             <span>Movies</span>
          </Link>
@@ -26,7 +27,10 @@ const Navbar = () => {
          <NavLink collapse={collapse} setCollapse={setCollapse} />
 
          {/* Toggle Switch Mode */}
-         <ToggleDark />
+         <div className="flex items-center gap-x-3 ml-3 grow md:grow-0 ">
+            <Search />
+            <ToggleDark />
+         </div>
       </nav>
    );
 };

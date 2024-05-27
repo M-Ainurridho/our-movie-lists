@@ -23,9 +23,7 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 
    return (
       <div className="pagination flex justify-center items-center gap-x-2 mt-8">
-         <Link href={createPageURL(currentPage - 1)}>
-            <ChevronLeftIcon className={clsx({ "h-8 mx-1 p-2 rounded-full cursor-pointer hover:bg-black hover:text-white duration-200": currentPage > 1 })} />
-         </Link>
+         <PaginationArrow href={createPageURL(currentPage - 1)} arrow="left" isActive={currentPage > 1} />
 
          {allPages.map((val: StringOrNumber, idx: number) => (
             <Link
@@ -42,11 +40,20 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
             </Link>
          ))}
 
-         <Link href={createPageURL(currentPage + 1)}>
-            <ChevronRightIcon className="h-8 mx-1 p-2 rounded-full cursor-pointer hover:bg-black hover:text-white duration-200" />
-         </Link>
+         <PaginationArrow href={createPageURL(currentPage + 1)} arrow="right" isActive={currentPage < totalPages} />
       </div>
    );
+};
+
+const PaginationArrow = ({ href, arrow, isActive }: { href: string; arrow: string; isActive: boolean }) => {
+   const className = clsx("h-8 mx-1 p-2 rounded-full", {
+      "cursor-pointer hover:bg-black hover:text-white duration-200": isActive,
+      "cursor-default": !isActive,
+   });
+
+   const arrowPosition = arrow == "right" ? <ChevronRightIcon className={className} /> : <ChevronLeftIcon className={className} />;
+
+   return isActive ? <Link href={href}>{arrowPosition}</Link> : <button>{arrowPosition}</button>;
 };
 
 export default Pagination;
