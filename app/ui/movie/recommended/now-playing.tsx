@@ -1,10 +1,11 @@
 import { fetchNowPlaying } from "@/app/lib/api";
-import CardWrapper from "@/app/ui/cards";
+import { SwiperCardWrapper } from "../../home/swiper";
+import CardWrapper from "../../cards";
 
-const NowPlaying = async ({ currentPage }: { currentPage?: number | undefined }) => {
+const NowPlaying = async ({ currentPage }: { currentPage?: number }) => {
    const { data } = currentPage ? await fetchNowPlaying(currentPage) : await fetchNowPlaying();
 
-   return <CardWrapper data={data} />;
+   return currentPage ? <CardWrapper data={data} /> : <SwiperCardWrapper data={data} />;
 };
 
 export default NowPlaying;

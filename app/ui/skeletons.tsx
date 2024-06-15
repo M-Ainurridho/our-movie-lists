@@ -62,7 +62,7 @@ export const GenreListSkeleton = () => {
 
 export const CardsSkeleton = () => {
    return (
-      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-4 justify-between">
+      <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-7 gap-4 justify-between">
          <CardSkeleton />
          <CardSkeleton />
          <CardSkeleton />

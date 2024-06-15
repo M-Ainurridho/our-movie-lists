@@ -1,5 +1,4 @@
 import { fetchTopRated } from "@/app/lib/api";
-import DetailMovie from "@/app/ui/home/detail";
 
 import "@/app/ui/home/home.css";
 import SwiperCarousel from "./swiper";

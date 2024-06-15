@@ -1,16 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { toSnakeCase } from "@/app/lib/utils";
+import { useEffect, useState } from "react";
+import { CardRecommended } from "../cards";
 
 const SwiperCarousel = ({ movies }) => {
    return (
-      <swiper-container
-         loop="true"
-         speed="1000"
-         grab-cursor="true"
-         pagination="true"
-         pagination-clickable="true"
-         autoplay>
+      <swiper-container loop="true" speed="1000" grab-cursor="true" pagination="true" pagination-clickable="true" autoplay>
          {movies.map(
             (movie, i) =>
                i < 10 && (
@@ -40,8 +38,35 @@ const TextOverview = ({ overview }) => {
    return (
       <>
          <p className="text-sm block md:hidden">{overview.substr(0, 100)}...</p>
-         <p className="text-sm hidden md:block">{overview}</p>
+         <p className="text-sm hidden md:block">{overview.substr(0, 200)}</p>
       </>
+   );
+};
+
+export const SwiperCardWrapper = ({ data }) => {
+   const [itemPerSlide, setItemPerSlide] = useState("5");
+
+   useEffect(() => {
+      window.innerWidth < 640 ? setItemPerSlide("2") :
+         window.innerWidth < 768 ? setItemPerSlide("5") :
+            setItemPerSlide("7");
+   }, []);
+
+   return (
+      <swiper-container slides-per-view={itemPerSlide} grab-cursor="true" className="bg-red-200">
+         {data.map(
+            (movie, index) =>
+               index < 7 && (
+                  <swiper-slide key={movie.id}>
+                     <CardRecommended 
+                        id={movie.id}
+                        title={movie.title}
+                        poster_path={movie.poster_path}
+                        release_date={movie.release_date} />
+                  </swiper-slide>
+               )
+         )}
+      </swiper-container>
    );
 };
 

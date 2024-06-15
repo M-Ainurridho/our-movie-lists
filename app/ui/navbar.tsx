@@ -19,7 +19,7 @@ const Navbar = () => {
 
          {/* Logo */}
          <Link href="/" className={clsx("logo hidden md:block md:text-3xl", righteous.className)}>
-            <span className="text-red-500">Ridho</span>
+            <span className="text-red-500">MAR</span>
             <span>Movies</span>
          </Link>
 
@@ -44,7 +44,7 @@ const NavLink = ({ collapse, setCollapse }: any) => {
          target: "/",
       },
       {
-         nav: "Genres",
+         nav: "Genre",
          target: "/movie/genre",
       },
    ];

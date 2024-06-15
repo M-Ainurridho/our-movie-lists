@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getOption } from "./options";
 import { unstable_noStore as noStore } from "next/cache";
-import { NumberOrUndefined } from "@/app/lib/definitions";
+import { NumberOrUndefined, Trailer } from "@/app/lib/definitions";
 
 export const fetchPopular = async (page: NumberOrUndefined = 1) => {
    noStore();
@@ -73,6 +73,21 @@ export const fetchDetailMovie = async (id: string | number) => {
       throw new Error("Failed to get popular data");
    }
 };
+
+
+export const fetchMovieTrailer = async (id: string | number) => {
+   noStore();
+
+   try {
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`, getOption);
+      const trailer = response.data.results.find((t: Trailer) => t.name.match(/official trailer/i))
+      return trailer;
+   } catch (err) {
+      console.log(err);
+      throw new Error("Failed to get popular data");
+   }
+}
+
 
 export const fetchMovieGenres = async () => {
    noStore();

@@ -3,7 +3,7 @@ import { toSnakeCase } from "@/app/lib/utils";
 import clsx from "clsx";
 import Link from "next/link";
 
-const Table = ({
+const TableWrapper = ({
    movie,
 }: {
    movie: {
@@ -18,63 +18,78 @@ const Table = ({
    };
 }) => {
    return (
-      <table className="border">
-         <tbody>
-            <TableRow title="Title" content={movie.title} />
-            <TableRow title="Tagline" content={movie.tagline} />
-            <TableRow title="Genres" content={movie.genres} />
-            <TableRow title="Production Countries" content={movie.production_countries} />
-            <TableRow title="Homepage" content={movie.homepage} isLink={true} />
-            <TableRow title="Status" content={movie.status} />
-            <TableRow title="Overview" content={movie.overview} />
-         </tbody>
-      </table>
+      <div className="flex flex-col md:flex-row flex-wrap gap-4">
+         <Table title="Title" content={movie.title}></Table>
+         <Table title="Tagline" content={movie.tagline}></Table>
+         <Table title="Genre" content={movie.genres} isLink={true}></Table>
+         <Table title="Status" content={movie.status}></Table>
+         <Table title="Production Countries" content={movie.production_countries}></Table>
+         <Table title="Homepage" content={movie.homepage} isLink={true}></Table>
+         <Table title="Overview" content={movie.overview}></Table>
+      </div>
    );
 };
 
-const TableRow = ({ title, content, isLink }: { title: string; content: string | object; isLink?: boolean }) => {
+const Table = ({
+   title, content, isLink
+}: {
+   title: string; content: any; isLink?: boolean
+}) => {
+   const filteredContent = typeof content === "string" ?
+      <ContentString content={content} isLink={isLink} /> :
+      <ContentObject content={content} isLink={isLink} />;
+
    return (
-      <tr>
-         <TableTitle title={title} />
-         {typeof content === "string" ? isLink ? <TableContentString text={content} isActive={isLink} /> : <TableContentString text={content} /> : <TableContentObject arr={content} />}
-      </tr>
+      <div className="grow border rounded-md text-center">
+         <h4 className="py-2 font-bold bg-neutral-200 border-b dark:bg-neutral-700 rounded-t-md">{title}</h4>
+         {filteredContent}
+      </div>
    );
 };
 
-const TableTitle = ({ title }: { title: string }) => {
-   return <td className="p-2 font-semibold border-b text-sm md:text-base">{title}</td>;
-};
-
-export const TableContentString = ({ text, isActive }: { text: string; isActive?: boolean }) => {
-   const className = "border-l border-b p-2 text-sm md:text-base";
-
-   return isActive ? (
-      <td className={className}>
-         <Link href={text} className="text-blue-700 hover:text-blue-500" target="_blank">
-            {text || "-"}
-         </Link>
-      </td>
+const ContentString = ({
+   content, isLink
+}: {
+   content: string; isLink?: boolean
+}) => {
+   const newContent = !content ? (
+      "-"
+   ) : isLink ? (
+      <Link href={content} className="text-blue-500 hover:text-blue-700 duration-100">
+         {content}
+      </Link>
    ) : (
-      <td className={clsx(className, { "text-green-600": text.match(/released/i) })}>{text || "-"}</td>
+      content
    );
+
+   return <p className="p-2">{newContent}</p>;
 };
 
-export const TableContentObject = ({ arr }: Genre[] | any) => {
-   return (
-      <td className="py-1 px-2 border-b border-l text-sm md:text-base">
-         {arr.map((el: Genre | any, index: number) => {
-            const NAME = index !== arr.length - 1 ? `${el.name}, ` : el.name;
+const ContentObject = ({
+   content, isLink
+}: {
+   content: any; isLink?: boolean
+}) => {
+   const className = clsx({
+      "text-blue-500 hover:text-blue-700 duration-100 me-1": isLink,
+      "me-1": !isLink,
+   });
 
-            return el?.id ? (
-               <Link key={index} href={`/movie/genre/${toSnakeCase(el.name)}_${el.id}`} className="text-blue-700 hover:text-blue-500">
-                  {NAME}
-               </Link>
-            ) : (
-               <span key={index}>{NAME}</span>
-            );
-         })}
-      </td>
-   );
+   const newContent = content.map((c: any, i: number) => {
+      const elName = i !== content.length - 1 ? `${c.name},` : c.name;
+
+      return isLink ? (
+         <Link key={c.name} href={`/movie/genre/${toSnakeCase(c.name)}_${c.id}`} className={className}>
+            {elName}
+         </Link>
+      ) : (
+         <span key={c.name} className={className}>
+            {elName}
+         </span>
+      );
+   });
+
+   return <p className="p-2">{newContent}</p>;
 };
 
-export default Table;
+export default TableWrapper;
