@@ -5,10 +5,10 @@ export const generatePages = (currentPage: number, totalPages: number): Paginati
       let pages: number[] = [];
 
       for (let i = 1; i <= totalPages; i++) {
-         pages.push(i)
+         pages.push(i);
       }
 
-      return pages
+      return pages;
    }
 
    if (currentPage <= 3) {
@@ -50,4 +50,16 @@ export const toUpperCase = (text: string) => {
    const exceptFirst = text.slice(1);
    const newText = firstWord + exceptFirst;
    return newText;
+};
+
+export const upperAndSplit = (text: string, separator: string) => {
+   let splited = text.split(separator);
+   if (splited.length > 2) {
+      splited = splited.map((genre, i) => (i !== splited.length - 1 ? toUpperCase(genre) : ""));
+      splited.pop();
+
+      return splited.join(" ");
+   }
+
+   return toUpperCase(splited[0]);
 };

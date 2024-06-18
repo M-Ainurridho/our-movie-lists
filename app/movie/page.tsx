@@ -3,7 +3,7 @@ import { fetchSearchMovies } from "../lib/api";
 import { MovieRecommendedSkeleton } from "../ui/skeletons";
 import SearchByTitle from "../ui/movie/searchBy/title";
 import Pagination from "../ui/movie/pagination";
-import Container from "../ui/container";
+import Main from "../ui/semantics";
 
 const Page = async ({
    searchParams,
@@ -18,7 +18,7 @@ const Page = async ({
    const { data, totalPages } = await fetchSearchMovies(query, currentPage);
 
    return (
-      <Container>
+      <Main>
          <h2 className="text-2xl mb-4">
             Searched Movies <strong>{query}</strong>
          </h2>
@@ -35,7 +35,7 @@ const Page = async ({
                <span className="p-3 text-white bg-red-500 shadow shadow-lg shadow-red-400 text-lg font-bold rounded-md">Movie Not Found</span>
             </div>
          )}
-      </Container>
+      </Main>
    );
 };
 

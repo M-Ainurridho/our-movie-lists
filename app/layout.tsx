@@ -2,16 +2,17 @@ import type { Metadata } from "next";
 import { raleway } from "@/app/ui/fonts";
 
 import "@/app/ui/globals.css";
-import "@/app/lib/swiper"
+import "@/app/lib/swiper";
 import DarkTheme from "./ui/theme";
 import Navbar from "./ui/navbar";
 
 export const metadata: Metadata = {
-   title: "Ridho Movie Lists",
-   description: "The next movie lists",
+   title: {
+      template: "%s | MAR Movie",
+      default: "MAR Movie",
+   },
+   description: "The Place To See The Latest Film Info",
 };
-
-
 
 export default function RootLayout({
    children,
@@ -19,7 +20,7 @@ export default function RootLayout({
    children: React.ReactNode;
 }>) {
    return (
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning={true}>
          <DarkTheme>
             <body className={raleway.className} suppressHydrationWarning={true}>
                <Navbar />

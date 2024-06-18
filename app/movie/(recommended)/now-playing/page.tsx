@@ -5,6 +5,11 @@ import { Suspense } from "react";
 import { CardsSkeleton } from "@/app/ui/skeletons";
 import Upcoming from "@/app/ui/movie/recommended/upcoming";
 import Pagination from "@/app/ui/movie/pagination";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+   title: "Now Playing",
+};
 
 const Page = async ({ searchParams }: { searchParams?: { page?: number } }) => {
    const currentPage = Number(searchParams?.page) || 1;

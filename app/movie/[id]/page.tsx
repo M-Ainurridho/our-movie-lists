@@ -1,13 +1,25 @@
 import { fetchDetailMovie, fetchMovieTrailer } from "@/app/lib/api";
 import { Trailer } from "@/app/lib/definitions";
-import { toSnakeCase } from "@/app/lib/utils";
+import { toSnakeCase, upperAndSplit } from "@/app/lib/utils";
 import Container from "@/app/ui/container";
 import { ButtonBack } from "@/app/ui/movie/buttons";
 import TableWrapper from "@/app/ui/movie/tables";
+import { Metadata } from "next";
 import Image from "next/image";
 
-const Page = async ({ params }: { params: { id: string } }) => {
-   const id = toSnakeCase(params?.id, false);
+type Props = {
+   params: { id: string };
+};
+
+export function generateMetadata({ params }: Props): Metadata {
+   const genre = upperAndSplit(params.id, "_");
+   return {
+      title: genre,
+   };
+}
+
+const Page = async ({ params }: Props) => {
+   const id = toSnakeCase(params.id, false);
    const movie = await fetchDetailMovie(id);
    const trailer = await fetchMovieTrailer(id);
 

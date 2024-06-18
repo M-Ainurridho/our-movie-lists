@@ -20,7 +20,7 @@ const Navbar = () => {
          {/* Logo */}
          <Link href="/" className={clsx("logo hidden md:block md:text-3xl", righteous.className)}>
             <span className="text-red-500">MAR</span>
-            <span>Movies</span>
+            <span>Movie</span>
          </Link>
 
          {/* Navigation Link */}

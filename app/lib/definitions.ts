@@ -1,6 +1,6 @@
 export type NumberOrUndefined = number | undefined;
 export type StringOrUndefined = string | undefined;
-export type StringOrNumber = string | number
+export type StringOrNumber = string | number;
 
 export interface Genre {
    id: number;
@@ -8,26 +8,20 @@ export interface Genre {
 }
 
 export interface Movie {
-   id: StringOrNumber;
+   id: number;
    title: string;
    poster_path: string;
-   release_date: StringOrNumber | Date;
-}
+   release_date: string;
+};
 
 export interface Trailer {
-   name: string,
-   key: string,
-   site: string,
-   size: number,
-   type: string,
-   official: true,
-   id: string
- 
+   name: string;
+   key: string;
+   site: string;
+   size: number;
+   type: string;
+   official: true;
+   id: string;
 }
 
-export type PaginationSlide =
-   number[] |
-   [number, number, number, string, number, number] |
-   [number, number, string, number, number, number] |
-   [number, string, number, number, number, string, number]
-
+export type PaginationSlide = number[] | [number, number, number, string, number, number] | [number, number, string, number, number, number] | [number, string, number, number, number, string, number];

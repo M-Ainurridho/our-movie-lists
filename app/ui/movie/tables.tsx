@@ -22,22 +22,16 @@ const TableWrapper = ({
          <Table title="Title" content={movie.title}></Table>
          <Table title="Tagline" content={movie.tagline}></Table>
          <Table title="Genre" content={movie.genres} isLink={true}></Table>
+         <Table title="Homepage" content={movie.homepage} isLink={true}></Table>
          <Table title="Status" content={movie.status}></Table>
          <Table title="Production Countries" content={movie.production_countries}></Table>
-         <Table title="Homepage" content={movie.homepage} isLink={true}></Table>
          <Table title="Overview" content={movie.overview}></Table>
       </div>
    );
 };
 
-const Table = ({
-   title, content, isLink
-}: {
-   title: string; content: any; isLink?: boolean
-}) => {
-   const filteredContent = typeof content === "string" ?
-      <ContentString content={content} isLink={isLink} /> :
-      <ContentObject content={content} isLink={isLink} />;
+const Table = ({ title, content, isLink }: { title: string; content: any; isLink?: boolean }) => {
+   const filteredContent = typeof content === "string" ? <ContentString content={content} isLink={isLink} /> : <ContentObject content={content} isLink={isLink} />;
 
    return (
       <div className="grow border rounded-md text-center">
@@ -47,11 +41,7 @@ const Table = ({
    );
 };
 
-const ContentString = ({
-   content, isLink
-}: {
-   content: string; isLink?: boolean
-}) => {
+const ContentString = ({ content, isLink }: { content: string; isLink?: boolean }) => {
    const newContent = !content ? (
       "-"
    ) : isLink ? (
@@ -65,26 +55,21 @@ const ContentString = ({
    return <p className="p-2">{newContent}</p>;
 };
 
-const ContentObject = ({
-   content, isLink
-}: {
-   content: any; isLink?: boolean
-}) => {
+const ContentObject = ({ content, isLink }: { content: any; isLink?: boolean }) => {
    const className = clsx({
-      "text-blue-500 hover:text-blue-700 duration-100 me-1": isLink,
+      "inline-block text-blue-500 hover:text-blue-700 duration-100 me-1": isLink,
       "me-1": !isLink,
    });
 
    const newContent = content.map((c: any, i: number) => {
-      const elName = i !== content.length - 1 ? `${c.name},` : c.name;
-
       return isLink ? (
          <Link key={c.name} href={`/movie/genre/${toSnakeCase(c.name)}_${c.id}`} className={className}>
-            {elName}
+            {c.name}
+            {i !== content.length - 1 && <span className="cursor-default text-neutral-900">,</span>}
          </Link>
       ) : (
          <span key={c.name} className={className}>
-            {elName}
+            {c.name}
          </span>
       );
    });

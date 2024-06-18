@@ -74,20 +74,20 @@ export const fetchDetailMovie = async (id: string | number) => {
    }
 };
 
-
 export const fetchMovieTrailer = async (id: string | number) => {
    noStore();
 
    try {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`, getOption);
-      const trailer = response.data.results.find((t: Trailer) => t.name.match(/official trailer/i))
+      const trailer = response.data.results
+         .filter((t: Trailer) => t.type == "Trailer")
+         .find((t: Trailer, _: number, arr: Trailer[]) => (arr.length > 1 ? t.name.match(/official trailer/i) : t));
       return trailer;
    } catch (err) {
       console.log(err);
       throw new Error("Failed to get popular data");
    }
-}
-
+};
 
 export const fetchMovieGenres = async () => {
    noStore();
@@ -118,7 +118,6 @@ export const fetchMoviesByGenre = async (params: string | number, page: number) 
 };
 
 export const fetchSearchMovies = async (title: string, page: number) => {
-
    noStore();
 
    try {

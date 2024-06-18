@@ -1,21 +1,27 @@
 import { fetchMoviesByGenre } from "@/app/lib/api";
-import { generateGenre, toSnakeCase } from "@/app/lib/utils";
+import { generateGenre, toSnakeCase, toUpperCase, upperAndSplit } from "@/app/lib/utils";
 
 import { Suspense } from "react";
 import { CardsSkeleton } from "@/app/ui/skeletons";
 import Pagination from "@/app/ui/movie/pagination";
 import SearchByGenre from "@/app/ui/movie/searchBy/genre";
 
-const Page = async ({
-   params,
-   searchParams,
-}: {
+type Props = {
    params: { id: string };
    searchParams?: {
-      page?: number;
+      page?: string;
    };
-}) => {
-   const id = toSnakeCase(params?.id, false);
+};
+
+export function generateMetadata({ params, searchParams }: Props) {
+   const genre = upperAndSplit(params.id, "_");
+   return {
+      title: genre,
+   };
+}
+
+const Page = async ({ params, searchParams }: Props) => {
+   const id = toSnakeCase(params.id, false);
    const currentPage = Number(searchParams?.page) || 1;
 
    const { totalPages } = await fetchMoviesByGenre(id, currentPage);

@@ -1,10 +1,13 @@
 import { fetchPopular } from "@/app/lib/api";
-
 import { Suspense } from "react";
-
-import { CardsSkeleton, MovieRecommendedSkeleton } from "@/app/ui/skeletons";
+import { CardsSkeleton } from "@/app/ui/skeletons";
 import Popular from "@/app/ui/movie/recommended/popular";
 import Pagination from "@/app/ui/movie/pagination";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+   title: "Popular",
+};
 
 const Page = async ({ searchParams }: { searchParams?: { page?: number } }) => {
    const currentPage = Number(searchParams?.page) || 1;

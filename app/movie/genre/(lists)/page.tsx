@@ -4,7 +4,12 @@ import { toSnakeCase } from "@/app/lib/utils";
 
 import Container from "@/app/ui/container";
 import { HashtagIcon } from "@heroicons/react/24/outline";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+   title: "Genre List",
+};
 
 const Page = async () => {
    const genres = await fetchMovieGenres();

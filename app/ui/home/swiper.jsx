@@ -8,7 +8,7 @@ import { CardRecommended } from "../cards";
 
 const SwiperCarousel = ({ movies }) => {
    return (
-      <swiper-container loop="true" speed="1000" grab-cursor="true" pagination="true" pagination-clickable="true" autoplay>
+      <swiper-container slides-per-view="1" loop="true" speed="1000" grab-cursor="true" pagination="true" pagination-clickable="true" autoplay>
          {movies.map(
             (movie, i) =>
                i < 10 && (
@@ -47,22 +47,16 @@ export const SwiperCardWrapper = ({ data }) => {
    const [itemPerSlide, setItemPerSlide] = useState("5");
 
    useEffect(() => {
-      window.innerWidth < 640 ? setItemPerSlide("2") :
-         window.innerWidth < 768 ? setItemPerSlide("5") :
-            setItemPerSlide("7");
+      window.innerWidth < 640 ? setItemPerSlide("2") : window.innerWidth < 768 ? setItemPerSlide("5") : setItemPerSlide("7");
    }, []);
 
    return (
       <swiper-container slides-per-view={itemPerSlide} grab-cursor="true" className="bg-red-200">
          {data.map(
             (movie, index) =>
-               index < 7 && (
+               index < 10 && (
                   <swiper-slide key={movie.id}>
-                     <CardRecommended 
-                        id={movie.id}
-                        title={movie.title}
-                        poster_path={movie.poster_path}
-                        release_date={movie.release_date} />
+                     <CardRecommended movie={movie} />
                   </swiper-slide>
                )
          )}
